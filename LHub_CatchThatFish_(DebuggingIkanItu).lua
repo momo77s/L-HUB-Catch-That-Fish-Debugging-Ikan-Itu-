@@ -84,7 +84,7 @@ Instance.new("UICorner", Topbar).CornerRadius = UDim.new(0, 8)
 local Title = Instance.new("TextLabel", Topbar)
 Title.Size = UDim2.new(1, -70, 1, 0)
 Title.Position = UDim2.new(0, 15, 0, 0)
-Title.Text = "L Hub | Catch That Fish (Debugging Ikan Itu)"
+Title.Text = "L Hub | Catch A Fish (Debugging Ikan Itu)"
 Title.TextColor3 = Color3.fromRGB(0, 200, 255)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 13
@@ -142,11 +142,11 @@ local function switchTab(tabName)
         if name == tabName then
             data.btn.BackgroundColor3 = Color3.fromRGB(0, 130, 220)
             data.btn.TextColor3 = Color3.new(1,1,1)
-            data.indicator.Visible = true -- Nyalakan garis biru cyan
+            data.indicator.Visible = true
         else
             data.btn.BackgroundColor3 = Color3.fromRGB(25, 25, 28)
             data.btn.TextColor3 = Color3.fromRGB(150, 150, 150)
-            data.indicator.Visible = false -- Matikan garis biru
+            data.indicator.Visible = false
         end
     end
 end
@@ -165,7 +165,6 @@ for _, name in ipairs({"Information", "Spoof Fish"}) do
     btn.TextXAlignment = Enum.TextXAlignment.Left
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
     
-    -- INDIKATOR GARIS BIRU (Cyan)
     local indicator = Instance.new("Frame", btnContainer)
     indicator.Size = UDim2.new(0, 4, 1, 0)
     indicator.Position = UDim2.new(1, -4, 0, 0)
@@ -282,7 +281,7 @@ TimerDisplay.TextColor3 = Color3.fromRGB(0, 255, 100)
 TimerDisplay.Font = Enum.Font.GothamBold
 Instance.new("UICorner", TimerDisplay).CornerRadius = UDim.new(0, 6)
 
--- DROPDOWN LIST (ZIndex tinggi)
+-- DROPDOWN LIST (ZIndex tinggi, Fixed Scroll)
 local DropdownList = Instance.new("ScrollingFrame", TabSpoof)
 DropdownList.Size = UDim2.new(1, 0, 0, 160)
 DropdownList.Position = UDim2.new(0, 0, 0, 40)
@@ -290,6 +289,9 @@ DropdownList.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
 DropdownList.ScrollBarThickness = 5
 DropdownList.Visible = false
 DropdownList.ZIndex = 5
+-- FIX: Gunakan AutomaticCanvasSize agar tinggi scroll mengikuti jumlah isi
+DropdownList.AutomaticCanvasSize = Enum.AutomaticSize.Y 
+DropdownList.CanvasSize = UDim2.new(0, 0, 0, 0) 
 Instance.new("UICorner", DropdownList).CornerRadius = UDim.new(0, 6)
 local DropLayout = Instance.new("UIListLayout", DropdownList)
 
@@ -310,7 +312,6 @@ for _, fishName in ipairs(secretFishes) do
         DropdownList.Visible = false
     end)
 end
-DropdownList.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
 
 DropdownBtn.MouseButton1Click:Connect(function()
     DropdownList.Visible = not DropdownList.Visible
@@ -346,10 +347,10 @@ MinBtn.MouseButton1Click:Connect(function()
     
     if isHidden then
         MainFrame.Size = UDim2.new(0, 200, 0, 35)
-        Title.Text = "L Hub | Catch That Fish" 
+        Title.Text = "L Hub | Catch A Fish" 
     else
         MainFrame.Size = UDim2.new(0, 520, 0, 320)
-        Title.Text = "L Hub | Catch That Fish (Debugging Ikan Itu)"
+        Title.Text = "L Hub | Catch A Fish (Debugging Ikan Itu)"
     end
     MinBtn.Text = isHidden and "+" or "-"
 end)
@@ -397,4 +398,4 @@ if hookmetamethod and not getgenv().HookCatchAFish then
     end)
 end
 
-print("👑 L-HUB Catch That Fish (Perfect UI) Loaded!")
+print("👑 L-HUB Catch A Fish (Fixed Scroll) Loaded!")
